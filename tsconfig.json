@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES2015",
+    "module": "ESNext",
+    "declaration": true,
+    "moduleResolution": "node",
+    "declarationDir": "/dist",
+    "strict": true
+  }
+}
