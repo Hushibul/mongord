@@ -3,7 +3,9 @@
 ## Installation
 
 `npm install @hushibul/mongord`
+
 or
+
 `yarn add @hushibul/mongord`
 
 ## Quick Start
@@ -14,8 +16,10 @@ This guide will show you how to set up a simple application using Node.js and Mo
 
 First, create a directory where your application will live.
 
-`mkdir myProject
-cd myProject`
+```
+mkdir myProject
+cd myProject
+```
 
 Enter the following command and answer the questions to create the initial structure for your new project:
 
@@ -95,3 +99,7 @@ import {deleteDocumentsById} from '@hushibul/mongord';
 const deletedResult = await deleteDocumentsById(6669811da14e1b68a280245b);
 console.log(deletedResult);
 ```
+
+## Author
+
+[hushibul](https://github.com/Hushibul)
