@@ -127,7 +127,7 @@ const deleteDocumentById = (collection, id) => __awaiter(void 0, void 0, void 0,
 let dbUrl;
 let dbName;
 let collectionName;
-const setDbInfo = (url, name, collection) => {
+const setDbConfiguration = (url, name, collection) => {
     dbUrl = url;
     dbName = name;
     collectionName = collection;
@@ -243,4 +243,4 @@ const deleteDocumentsById = (id) => __awaiter(void 0, void 0, void 0, function* 
     }
 });
 
-export { deleteDocumentsById, findAllDocuments, findDocumentsById, findDocumentsWithPagination, insertDocument, insertMultipleDocuments, searchInDocuments, setDbInfo, updateDocumentById, updateMultipleDocuments, useAggregation, withDbOperation };
+export { deleteDocumentsById, findAllDocuments, findDocumentsById, findDocumentsWithPagination, insertDocument, insertMultipleDocuments, searchInDocuments, setDbConfiguration, updateDocumentById, updateMultipleDocuments, useAggregation, withDbOperation };

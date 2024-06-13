@@ -27,58 +27,71 @@ Next, install the driver as a dependency.
 
 ### Setting Database configuration
 
-`
+```
 import {setDbConfiguration} from '@hushibul/mongord';
 
 setDbConfiguration(your_database_url, your_database_name, your_collection_name);
-`
+```
 
 ### Insert a Document
 
-`import {insertDocument} from '@hushibul/mongord';
+```
+import {insertDocument} from '@hushibul/mongord';
 const insertedResult = await insertDocument({name: your_name});
-console.log(insertedResult)`
+console.log(insertedResult)
+```
 
 ### Insert Multiple Documents
 
-`import {insertMultipleDocuments} from '@hushibul/mongord';
+```
+import {insertMultipleDocuments} from '@hushibul/mongord';
 const insertedResult = await insertMultipleDocuments([{a: 6}, {b: 20}, c: 50]);
-console.log(insertedResult);`
+console.log(insertedResult);
+```
 
 ### Update a Document
 
-`import {updateDocumentById} from '@hushibul/mongord;'
+```
+import {updateDocumentById} from '@hushibul/mongord;'
 const updatedResult = await updateDocumentById(6669811da14e1b68a280245b, {a: 9});
 console.log(updatedResult);
-`
+```
 
 ### Update Multiple Documents
 
-`import {updateMultipleDocuments} from '@hushibul/mongord';
+```import {updateMultipleDocuments} from '@hushibul/mongord';
 const updatedResult = await updateMultipleDocuments({a: 50});
-console.log(updatedResult);`
+console.log(updatedResult);
+```
 
 ### Find All Documents
 
-`import {findAllDocuments} from '@hushibul/mongord';
+```
+import {findAllDocuments} from '@hushibul/mongord';
 const searchedResult = await findAllDocuments();
 console.log(searchedResult);
-`
+```
 
 ### Find Documents with Pagination
 
-`import {findDocumentsWithPagination} from '@hushibul/mongord';
+```
+import {findDocumentsWithPagination} from '@hushibul/mongord';
 const searchedResult = await findDocumentsWithPagination(skip_items, skip_limit);
-console.log(searchedResult);`
+console.log(searchedResult);
+```
 
 ### Search in the Documents
 
-`import {searchInDocuments} from '@hushibul/mongord';
+```
+import {searchInDocuments} from '@hushibul/mongord';
 const searchedResult = await searchInDocuments(searched_input, the_field_you_want_to_search_in);
-console.log(searchedResult);`
+console.log(searchedResult);
+```
 
 ### Delete a Document
 
-`import {deleteDocumentsById} from '@hushibul/mongord';
+```
+import {deleteDocumentsById} from '@hushibul/mongord';
 const deletedResult = await deleteDocumentsById(6669811da14e1b68a280245b);
-console.log(deletedResult);`
+console.log(deletedResult);
+```
