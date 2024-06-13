@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+import { ObjectId, MongoClient } from 'mongodb';
 
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -50,14 +50,78 @@ const insertManyInDb = (collection, insertedData) => __awaiter(void 0, void 0, v
         throw error;
     }
 });
+// UPDATE ONE DOCUMENT
+const updateOneById = (collection, id, updateData) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        return yield collection.updateOne({ _id: new ObjectId(id) }, { $set: updateData });
+    }
+    catch (error) {
+        throw error;
+    }
+});
+//UPDATE MULTIPLE DOCUMENTS
+const updateManyDocuments = (collection_1, updatedData_1, ...args_1) => __awaiter(void 0, [collection_1, updatedData_1, ...args_1], void 0, function* (collection, updatedData, query = {}) {
+    try {
+        return yield collection.updateMany(query, { $set: updatedData });
+    }
+    catch (error) {
+        throw error;
+    }
+});
 // FIND ALL DOCUMENTS
-const findAllDocuments = (collection, sortingOrder) => __awaiter(void 0, void 0, void 0, function* () {
+const findAll = (collection, sortingOrder) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         return yield collection.find({}).sort(sortingOrder).toArray();
     }
     catch (error) {
         throw error;
     }
+});
+// FIND DOCUMENTS WITH PAGINATION
+const findDocumentsPagination = (collection_2, ...args_2) => __awaiter(void 0, [collection_2, ...args_2], void 0, function* (collection, limit = 10, skip = 0, sortingOrder) {
+    const options = {
+        limit: limit,
+        skip: skip,
+    };
+    try {
+        return yield collection.find({}, options).sort(sortingOrder).toArray();
+    }
+    catch (error) {
+        throw error;
+    }
+});
+const searchDocuments = (collection, searchedInput, keyName) => __awaiter(void 0, void 0, void 0, function* () {
+    const query = {
+        [keyName]: { $regex: searchedInput, $options: 'i' },
+    };
+    try {
+        return yield collection.find(query).toArray();
+    }
+    catch (error) {
+        throw error;
+    }
+});
+// FIND DOCUMENT BY ID
+const findDocumentById = (collection, id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        return yield collection.findOne({ _id: new ObjectId(id) });
+    }
+    catch (error) {
+        throw error;
+    }
+});
+// USE MONGO AGGREGATION
+const useMongoAggregation = (collection, pipeline) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        return yield collection.aggregate(pipeline).toArray();
+    }
+    catch (error) {
+        throw error;
+    }
+});
+// DELETE DOCUMENT BY ID
+const deleteDocumentById = (collection, id) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield collection.deleteOne({ _id: new ObjectId(id) });
 });
 
 let dbUrl;
@@ -89,7 +153,7 @@ const withDbOperation = (operation) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 // Insert One
-const insertOne = (insertData) => __awaiter(void 0, void 0, void 0, function* () {
+const insertDocument = (insertData) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         return yield withDbOperation((collection) => insertOneInDb(collection, insertData));
     }
@@ -98,7 +162,7 @@ const insertOne = (insertData) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 // Insert Many
-const insertMany = (insertedData) => __awaiter(void 0, void 0, void 0, function* () {
+const insertMultipleDocuments = (insertedData) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         return yield withDbOperation((collection) => insertManyInDb(collection, insertedData));
     }
@@ -106,14 +170,77 @@ const insertMany = (insertedData) => __awaiter(void 0, void 0, void 0, function*
         throw error;
     }
 });
-// Find All Documents
-const findAll = () => __awaiter(void 0, void 0, void 0, function* () {
+// Update One By Id
+const updateDocumentById = (id, updatedData) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        return yield withDbOperation((collection) => findAllDocuments(collection));
+        return yield withDbOperation((collection) => updateOneById(collection, id, updatedData));
+    }
+    catch (error) {
+        throw error;
+    }
+});
+// Update Many
+const updateMultipleDocuments = (query, updatedData) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        return yield withDbOperation((collection) => updateManyDocuments(collection, query, updatedData));
+    }
+    catch (error) {
+        throw error;
+    }
+});
+// Find All Documents
+const findAllDocuments = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        return yield withDbOperation((collection) => findAll(collection));
+    }
+    catch (error) {
+        throw error;
+    }
+});
+// Find Document By Id
+const findDocumentsById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        return yield withDbOperation((collection) => findDocumentById(collection, id));
+    }
+    catch (error) {
+        throw error;
+    }
+});
+// Search In Documents
+const searchInDocuments = (searchInput, keyName) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        return yield withDbOperation((collection) => searchDocuments(collection, searchInput, keyName));
+    }
+    catch (error) {
+        throw error;
+    }
+});
+// Find Document With Pagination
+const findDocumentsWithPagination = (skip, limit) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        return yield withDbOperation((collection) => findDocumentsPagination(collection, skip, limit));
+    }
+    catch (error) {
+        throw error;
+    }
+});
+// Use Mongodb Aggregation
+const useAggregation = (pipeline) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        return yield withDbOperation((collection) => useMongoAggregation(collection, pipeline));
+    }
+    catch (error) {
+        throw error;
+    }
+});
+// Delete Document By Id
+const deleteDocumentsById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        return yield withDbOperation((collection) => deleteDocumentById(collection, id));
     }
     catch (error) {
         throw error;
     }
 });
 
-export { findAll, insertMany, insertOne, setDbInfo, withDbOperation };
+export { deleteDocumentsById, findAllDocuments, findDocumentsById, findDocumentsWithPagination, insertDocument, insertMultipleDocuments, searchInDocuments, setDbInfo, updateDocumentById, updateMultipleDocuments, useAggregation, withDbOperation };
